@@ -42,7 +42,7 @@ class ResearchOutput(BaseModel):
 def stage_extract(document_text: str) -> ExtractionOutput:
     """Stage 1: Extract structured facts from a document."""
     raw = client.messages.create(
-        model="claude-sonnet-4-6-20250514",
+        model="claude-sonnet-5-5",
         max_tokens=1024,
         system=EXTRACTOR_SYSTEM,
         messages=[{"role": "user", "content": f"Extract facts:\n{document_text[:3000]}"}],
@@ -58,7 +58,7 @@ def stage_research(extraction: ExtractionOutput) -> ResearchOutput:
     """Stage 2: Research precedents for extracted facts."""
     payload = json.dumps([f.model_dump() for f in extraction.facts], indent=2)
     raw = client.messages.create(
-        model="claude-sonnet-4-6-20250514",
+        model="claude-sonnet-5-5",
         max_tokens=1024,
         system=RESEARCHER_SYSTEM,
         messages=[{"role": "user", "content": f"Find precedents for:\n{payload}"}],
@@ -76,7 +76,7 @@ def stage_write(extraction: ExtractionOutput, research: ResearchOutput) -> str:
         f"PRECEDENTS:\n{json.dumps([p.model_dump() for p in research.precedents], indent=2)}"
     )
     return client.messages.create(
-        model="claude-sonnet-4-6-20250514",
+        model="claude-sonnet-5-5",
         max_tokens=2048,
         system=WRITER_SYSTEM,
         messages=[{"role": "user", "content": payload}],

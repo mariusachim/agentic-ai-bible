@@ -64,7 +64,7 @@ def summarize_session(messages: list[dict]) -> str:  # session summarization
         "Be specific. Do not summarize vaguely. Output plain text, max 300 words."
     )
     response = client.messages.create(
-        model="claude-haiku-3-5-20241022",  # cheaper model for summarization
+        model="claude-haiku-5-5",  # cheaper model for summarization
         max_tokens=512,
         system=summary_prompt,
         messages=[{"role": "user", "content": json.dumps(messages)}],
@@ -116,7 +116,7 @@ def run_research_session(user_message: str, user_id: str) -> str:
 
     for _ in range(10):
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=2048,
             system=system,
             tools=[SEARCH_TOOL],

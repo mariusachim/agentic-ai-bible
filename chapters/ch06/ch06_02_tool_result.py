@@ -139,7 +139,7 @@ def run_support_agent(customer_message: str) -> str:
 
     for step in range(10):
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=1024,
             system=system,
             tools=TOOLS,

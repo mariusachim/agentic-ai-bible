@@ -18,12 +18,18 @@ Run:
 import time
 import json
 import anthropic
+import logging
 from tavily import TavilyClient
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+log = logging.getLogger(__name__)
+
 MODELS = [
-    "claude-haiku-3-5-20241022",    # small, fast, cheap
-    "claude-sonnet-4-6-20250514",   # mid-tier, balanced
-    "claude-opus-4-1-20250514",     # frontier, expensive
+    "claude-haiku-5-5",    # small, fast, cheap
+    "claude-sonnet-5-5",   # mid-tier, balanced
 ]
 
 TOOLS = [
@@ -111,6 +117,7 @@ def run_research_agent(model: str, company: str) -> dict:
                 max_results=5,
                 days=call.input["days_back"],
             )["results"]
+            log.info("tool_call='tavily', input=%s, output =%s", call, articles)
             tool_results.append({
                 "type": "tool_result",
                 "tool_use_id": call.id,
@@ -126,5 +133,5 @@ if __name__ == '__main__':
         print('Set ANTHROPIC_API_KEY env var to run this example.')
         print('  export ANTHROPIC_API_KEY=your_key_here')
     else:
-        result = run_research_agent('What are the latest trends in AI?')
+        result = run_research_agent(MODELS[0], 'Banca Transilvania')
         print(result)

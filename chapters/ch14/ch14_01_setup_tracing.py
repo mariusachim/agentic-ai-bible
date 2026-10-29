@@ -92,7 +92,7 @@ def traced_llm_call(
             pricing = {
                 "gpt-4o": (0.000005, 0.000015),
                 "gpt-4o-mini": (0.00000015, 0.0000006),
-                "claude-3-5-sonnet-20241022": (0.000003, 0.000015),
+                "claude-sonnet-5-5": (0.000002, 0.00001),
             }
             in_price, out_price = pricing.get(model, (0.000005, 0.000015))
             input_tokens = response.usage.prompt_tokens

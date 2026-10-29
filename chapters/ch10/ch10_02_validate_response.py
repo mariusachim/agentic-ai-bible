@@ -24,7 +24,7 @@ Output: {"pass": false, "reason": "<specific rule violated>"} if any rule is vio
 def validate_response(customer_message: str, agent_response: str) -> tuple[bool, str]:
     """Validate agent response before returning to user. Returns (passed, response_or_reason)."""
     check = client.messages.create(
-        model="claude-haiku-3-5-20241022",  # cheap model for validation
+        model="claude-haiku-5-5",  # cheap model for validation
         max_tokens=64,
         system=VALIDATOR_SYSTEM,
         messages=[{"role": "user", "content": f"Customer: {customer_message}\nResponse: {agent_response}"}],

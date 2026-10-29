@@ -96,7 +96,7 @@ def handle_return_request(conversation_history: list[dict], state: ReturnState) 
 
     for _ in range(4):  # tight per-step budget
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=512,
             system=system,
             tools=tools,

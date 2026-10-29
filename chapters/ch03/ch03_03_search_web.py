@@ -13,6 +13,13 @@ Run:
 # requires ANTHROPIC_API_KEY
 import anthropic
 import json
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+log = logging.getLogger(__name__)
 
 client = anthropic.Anthropic()
 

@@ -58,7 +58,7 @@ HITL_THRESHOLD = 0.75  # request review when confidence below 75%
 def run_fraud_review_agent(transaction: dict) -> dict:
     """Review a flagged transaction with HITL for low-confidence decisions."""
     response = client.messages.create(
-        model="claude-sonnet-4-6-20250514",
+        model="claude-sonnet-5-5",
         max_tokens=512,
         system="""You are a fraud detection analyst. Review the transaction and output:
 {"decision": "approve|decline|escalate", "confidence": 0.0-1.0, "reasoning": "..."}

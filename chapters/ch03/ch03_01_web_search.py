@@ -23,8 +23,15 @@ from typing import Any, Callable
 
 import anthropic
 import httpx
+import logging
 
-MODEL = "claude-sonnet-4-5"
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
+log = logging.getLogger(__name__)
+
+MODEL = "claude-haiku-5-5"
 MAX_STEPS = 10
 SYSTEM_PROMPT = (
     "You are a research assistant. Answer the user's question by searching "
@@ -136,6 +143,7 @@ def run(question: str) -> RunResult:
     messages: list[dict[str, Any]] = [{"role": "user", "content": question}]
 
     for step in range(1, MAX_STEPS + 1):
+        log.info("step %d: calling %s", step, MODEL)
         resp = client.messages.create(
             model=MODEL,
             max_tokens=1024,
@@ -143,9 +151,14 @@ def run(question: str) -> RunResult:
             tools=TOOL_SCHEMAS,
             messages=messages,
         )
+        log.info("stop_reason=%s usage=%s", resp.stop_reason, resp.usage)
         messages.append({"role": "assistant", "content": resp.content})
 
-        tool_uses = [b for b in resp.content if b.type == "tool_use"]
+        tool_uses = []
+        for b in resp.content:
+            if b.type == "tool_use":
+                tool_uses.append(b)
+                log.info("tool_name=%s, tool_input=%s", b.name, b.input)
         if not tool_uses:
             # Model produced text with no tool call. Treat as stuck.
             return RunResult(status="halted", steps=step)

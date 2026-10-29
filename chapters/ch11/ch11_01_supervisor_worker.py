@@ -41,7 +41,7 @@ For each task:
 4. Return the final memo
 You coordinate; you do not execute tool calls directly."""
 
-def run_worker(system: str, user_message: str, model: str = "claude-sonnet-4-6-20250514") -> str:
+def run_worker(system: str, user_message: str, model: str = "claude-sonnet-5-5") -> str:
     """Run a single worker agent and return its output."""
     response = client.messages.create(
         model=model,

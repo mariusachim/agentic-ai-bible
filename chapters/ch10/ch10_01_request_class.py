@@ -40,7 +40,7 @@ Output ONLY a JSON object with a single field: {"class": "<category>"}"""
 
 def route_request(customer_message: str) -> RequestClass:  # router call
     response = client.messages.create(
-        model="claude-haiku-3-5-20241022",  # cheap model for routing
+        model="claude-haiku-5-5",  # cheap model for routing
         max_tokens=32,
         system=ROUTER_SYSTEM,
         messages=[{"role": "user", "content": customer_message}],
@@ -106,7 +106,7 @@ def execute_request(request_class: RequestClass, customer_message: str) -> str:
     messages = [{"role": "user", "content": customer_message}]
     for _ in range(8):
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=1024,
             system=system,
             tools=tools,

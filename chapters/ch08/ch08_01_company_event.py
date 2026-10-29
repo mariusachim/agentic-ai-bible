@@ -61,7 +61,7 @@ def extract_with_reflexion(article_text: str, max_retries: int = 3) -> CompanyEv
 
     for attempt in range(max_retries):  # ③ bounded retry loop
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=512,
             system=system,
             messages=messages,
@@ -85,7 +85,7 @@ def extract_with_reflexion(article_text: str, max_retries: int = 3) -> CompanyEv
                 )}
             ]
             reflect_response = client.messages.create(
-                model="claude-sonnet-4-6-20250514",
+                model="claude-sonnet-5-5",
                 max_tokens=256,
                 system=REFLECT_SYSTEM,
                 messages=reflect_messages,

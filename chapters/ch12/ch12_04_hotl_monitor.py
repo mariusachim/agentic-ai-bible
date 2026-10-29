@@ -83,7 +83,7 @@ def run_monitored_agent(task: str, max_iterations: int = 20) -> str:
             log_event("instruction_injected", {"message": injected})
 
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=1024,
             system="You are a research assistant. Complete the task step by step.",
             messages=messages,

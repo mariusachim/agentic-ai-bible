@@ -20,7 +20,7 @@ import anthropic
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-ANTHROPIC_MODEL = "claude-sonnet-4-6-20250514"
+ANTHROPIC_MODEL = "claude-sonnet-5-5"
 
 
 def mcp_tool_to_anthropic(tool) -> dict:
@@ -34,7 +34,7 @@ def mcp_tool_to_anthropic(tool) -> dict:
 async def run_agent_with_mcp_server(user_message: str) -> str:
     server_params = StdioServerParameters(
         command="python",
-        args=["ch09_mcp_server.py"],
+        args=["ch09_02_mcp_server.py"],
     )
 
     async with stdio_client(server_params) as (read, write):

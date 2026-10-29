@@ -16,8 +16,8 @@ import json
 
 client = anthropic.Anthropic()
 
-HAIKU  = "claude-haiku-4-5"   # fast, cheap — classification and relevance checks
-SONNET = "claude-sonnet-4-5"  # capable — synthesis and multi-step reasoning
+HAIKU  = "claude-haiku-5-5"   # fast, cheap — classification and relevance checks
+SONNET = "claude-sonnet-5-5"  # capable — synthesis and multi-step reasoning
 
 def classify_relevance(snippet: str, question: str) -> bool:
     # Use Haiku to quickly decide if a search snippet is worth reading.

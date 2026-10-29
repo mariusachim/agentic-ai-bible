@@ -58,7 +58,7 @@ def generate_candidates(spec: str, n: int = 3) -> list[str]:  # ② generate N c
         # Different temperature per candidate to encourage diversity
         temp_hint = ["standard", "more concise", "more defensive"][i % 3]
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=512,
             system=GENERATE_SYSTEM,
             messages=[{"role": "user", "content": f"Spec (write a {temp_hint} implementation):\n{spec}"}],

@@ -58,7 +58,7 @@ SEARCH_TOOL = {
 def create_plan(initiatives: list[str]) -> str:  # ① planning phase
     """Ask the model to produce an explicit plan before any execution begins."""
     response = client.messages.create(
-        model="claude-sonnet-4-6-20250514",
+        model="claude-sonnet-5-5",
         max_tokens=1024,
         system=PLAN_PROMPT,
         messages=[{"role": "user", "content": "Initiatives:\n" + "\n".join(f"- {i}" for i in initiatives)}],
@@ -81,7 +81,7 @@ def execute_plan(plan: str) -> str:  # ③ execution phase
 
     for iteration in range(30):  # ④ generous budget since plan may have many steps
         response = client.messages.create(
-            model="claude-sonnet-4-6-20250514",
+            model="claude-sonnet-5-5",
             max_tokens=2048,
             system=EXECUTE_PROMPT,
             tools=[SEARCH_TOOL],
